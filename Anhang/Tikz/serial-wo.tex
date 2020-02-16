@@ -1,0 +1,63 @@
+\documentclass[border=3mm]{standalone}
+
+\usepackage{xcolor}
+
+\definecolor{palesilver}{rgb}{0.79, 0.75, 0.73}
+\definecolor{silver}{rgb}{0.75, 0.75, 0.75}
+\definecolor{goldenbrown}{rgb}{0.6, 0.4, 0.08}
+\definecolor{glaucous}{rgb}{0.38, 0.51, 0.71}
+\usepackage{tikz}
+\usetikzlibrary{shapes,decorations,shadows}
+
+\usetikzlibrary{calc}
+
+
+\usetikzlibrary{decorations.text}
+
+
+
+\begin{document}
+
+
+\tikzset{paint/.style={ draw=#1!50!black, fill=#1!50 },
+    decorate with/.style=
+    {decorate,decoration={shape backgrounds,shape=#1,shape size=2mm}}}
+
+
+
+
+\begin{tikzpicture}
+  % bits seperator
+  \foreach \x in {0,1,...,11} { 
+    \draw[thick,color=black!40] (5.8-\x*0.48,0) -- (5.8-\x*.48,4);}
+  \foreach \x in {1,...,7} {  
+    \node [anchor=south] at (5.8-0.24-\x*0.48,3.95) {\tiny \x};} 
+  %ticks
+  \foreach \x in {0,...,11} {  
+    \node [anchor=north] at (5.8-0.24-\x*0.48,0) {\x};} 
+  \draw[thick,color=black!40] (0,0.05) -- (-1.2,0.05) node[anchor=south west,color=black] {LOW};
+  \draw[thick,color=black!40] (0,3.95) -- (-1.2,3.95) node[anchor=south west,color=black] {HIGH};  
+  %axis
+	\draw[latex-,thick] (-1,0.065) -- coordinate (x axis mid) (11.5,0.065);
+	\node [anchor=north] at (7,0) {sended bits};
+    \draw[-latex] (5.8-12*0.48,0) -- coordinate (y axis mid) (5.8-12*0.48,5);
+  % character bits
+  \draw (5.8-0.48,4) -- (5.8-0.48,4.5);
+  \draw (5.8-8*0.48,4) -- (5.8-8*0.48,4.5);
+  \draw[] (5.8-8*0.48,4.3) -- coordinate (c axis mid) (5.8-0.48,4.3);
+  \node[anchor=south] at (c axis mid) {7 character bits};
+  % start and parity bits
+  \node[rotate=90] at (5.8-0.24,4.75) {\small start bit}; 
+  \node[rotate=90] at (5.8-8*0.48-0.24,4.75) {\small parity bit}; 
+  % stop bits
+  \draw (5.8-9*0.48,4) -- (5.8-9*0.48,4.5);
+  \draw (5.8-12*0.48,4) -- (5.8-12*0.48,4.5);
+  \draw[] (5.8-9*0.48,4.3) -- coordinate (s axis mid) (5.8-12*0.48,4.3);
+  \node[anchor=south] at (s axis mid) {\small stop bits};
+
+  % image
+  \node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.9\textwidth]{serialW}};  
+\end{tikzpicture}
+
+
+\end{document}

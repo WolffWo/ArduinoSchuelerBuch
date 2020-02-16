@@ -1,0 +1,97 @@
+\documentclass[border=3mm]{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage{tikz}
+
+\usetikzlibrary{calc,shapes.geometric, arrows}
+
+\usetikzlibrary{external}
+
+\usepackage{filecontents}
+\usepackage{silence}
+\WarningFilter{latex}{Overwriting file}
+\WarningFilter{latex}{Tab has been converted to Blank Space}
+
+
+
+
+% Define the command. Note that the input and output folders are static!
+\newcommand{\includetikz}[1]{%
+    \tikzsetnextfilename{out/#1}%
+    \tikzset{
+    % Defines a custom style which generates BOTH, .pdf and .png export
+    png export/.style={
+        external/system call/.add={}%
+        {; convert -density 300 -transparent white "out/#1.pdf" "out/#1.png"}
+    }
+}
+    \input{in/#1.tikz}%
+}
+
+\tikzexternalize
+
+\tikzstyle{startstop} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=red!30]
+  \tikzstyle{io} = [trapezium, trapezium left angle=70, trapezium right angle=110, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=blue!30]
+  \tikzstyle{process} = [rectangle, minimum width=3cm, minimum height=1cm, text centered, text width=3cm, draw=black, fill=orange!30]
+  \tikzstyle{decision} = [diamond, minimum width=3cm, minimum height=1cm, text centered, draw=black, fill=green!30]
+  \tikzstyle{arrow} = [thick,->,>=stealth]
+  \tikzstyle{line} = [thick]
+  
+% Create a test .tikz file in the images_INP folder
+\begin{filecontents}{in/for.tikz}
+  
+  \begin{tikzpicture}[node distance=2cm, auto, scale=0.5, transform shape]
+   
+ \node (pro1) [process, fill=red!30] {Anweisung 1};
+ \node (ini) [process, below of=pro1] {Initialisieren};
+ %\node (dummy) [process, right of=ini, xshift=2cm,color=white, fill=white] {Anweisung 2b};
+  \node (dec) [decision, below of=ini, yshift=-0.5cm] {Testen};
+  \node (inc) [process, below of=dec, yshift=-0.5cm] {Zählen};
+  \node (pro2a) [process, below of=inc, yshift=-0.5cm] {Anweisung 2};
+  \node (pro3) [process, fill=red!30, below of=pro2a] {Anweisung 3};
+
+    
+  \draw [arrow] (pro1) -- (ini);
+  \draw [arrow] (ini) -- (dec);
+  \draw [arrow] (dec) -- node[anchor=east] {wahr} (inc);
+  \draw [arrow] (inc) -- (pro2a);
+  \draw  [line] (pro2a.west) -- ($(pro2a.west) + (-0.9,0)$)--($(dec.west) + (-1.0,0)$);
+  \draw [arrow, xshift=2cm] ($(dec.west) - (1.0,0)$) -- (dec.west);
+  \draw [line] (dec.east) -- node[anchor=south] {falsch} ($(dec.east) + (1,0)$) --  ($(pro3.east) + (0.9,0)$);
+  \draw [arrow, xshift=2cm] ($(pro3.east) + (0.9,0)$) -- (pro3.east);
+    
+  \end{tikzpicture}
+\end{filecontents}
+
+
+% Create a test .tikz file in the images_INP folder
+\begin{filecontents}{in/while.tikz}
+ 
+  \begin{tikzpicture}[node distance=2cm, auto, scale=0.5, transform shape]
+   
+ \node (pro1) [process, fill=red!30] {Anweisung 1};
+ \node (dec) [decision, below of=pro1, yshift=-0.5cm] {Bedingung};
+ \node (pro2a) [process, below of=dec, yshift=-0.5cm] {Anweisung 2};
+  \node (pro3) [process, fill=red!30, below of=pro2a] {Anweisung 3};
+
+    
+  \draw [arrow] (pro1) -- (dec);
+  \draw [arrow] (dec) -- node[anchor=east] {wahr} (pro2a);
+  \draw  [line] (pro2a.west) -- ($(pro2a.west) + (-0.9,0)$)--($(dec.west) + (-1.0,0)$);
+  \draw [arrow, xshift=2cm] ($(dec.west) - (1.0,0)$) -- (dec.west);
+  \draw [line] (dec.east) -- node[anchor=south] {falsch} ($(dec.east) + (1,0)$) --  ($(pro3.east) + (0.9,0)$);
+  \draw [arrow, xshift=2cm] ($(pro3.east) + (0.9,0)$) -- (pro3.east);
+    
+  \end{tikzpicture}
+\end{filecontents}
+
+
+\begin{document}
+\tikzset{external/force remake}
+\framebox{
+\includetikz{for}}
+
+\framebox{
+\includetikz{while}}
+
+\end{document}

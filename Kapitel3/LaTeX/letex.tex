@@ -1,0 +1,30 @@
+\documentclass{minimal}
+\usepackage{circuitikz}
+
+% modified code from pgfcircbipoles.sty and circuitikz1.code.tex
+
+\makeatletter
+% create the shape
+\pgfcircdeclarebipole{}{\ctikzvalof{bipoles/interr/height 2}}{spst}{\ctikzvalof{bipoles/interr/height}}{\ctikzvalof{bipoles/interr/width}}{
+
+    \pgfsetlinewidth{\pgfkeysvalueof{/tikz/circuitikz/bipoles/thickness}\pgfstartlinewidth}
+
+    \pgfpathmoveto{\pgfpoint{\pgf@circ@res@left}{0pt}}
+    \pgfpathlineto{\pgfpoint{.6\pgf@circ@res@right}{\pgf@circ@res@up}}
+    \pgfusepath{draw}   
+}
+
+% make the shape accessible with nice syntax
+\def\pgf@circ@spst@path#1{\pgf@circ@bipole@path{spst}{#1}}
+\tikzset{switch/.style = {\circuitikzbasekey, /tikz/to path=\pgf@circ@spst@path, l=#1}}
+\tikzset{spst/.style = {switch = #1}}
+\makeatother
+
+\begin{document}
+
+\begin{circuitikz}
+    \draw (0,0) to[switch, l=$t_0$] (2,0)
+                to[spst] (2,-2);
+\end{circuitikz}
+
+\end{document}

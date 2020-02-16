@@ -1,0 +1,387 @@
+\documentclass[11pt,openany,twoside]{scrreprt}
+
+% Seitenlayout
+\usepackage[marginratio=1:2,
+paper=a4paper,landscape=true,
+tmargin=32pt,lmargin=74pt,rmargin=32pt,
+headheight=40pt,marginparwidth=182pt,
+includehead,includemp]{geometry}
+
+\usepackage{subfigure}
+
+% Inhaltsverzeichnis für Chapters
+\usepackage{minitoc}
+\mtcsetdepth{minitoc}{0}
+\mtcsettitle{minitoc}{Inhalt}
+\nomtcrule
+
+% Zitate am Anfang von Chapters
+\usepackage{epigraph}
+
+% ref chapter and section name.
+\usepackage{nameref}
+
+
+\include{preambel}
+
+\usepackage[colorlinks=true,urlcolor=blue,linkcolor=darkgray]{hyperref}
+\urlstyle{tt}
+
+% farbe
+\usepackage{xcolor}
+\definecolor{gold}{rgb}{0.85,.66,0}
+\definecolor{silver}{cmyk}{0, 0,0,0.3}
+\definecolor{bluegray}{rgb}{0.4, 0.6, 0.8}
+\definecolor{thulianpink}{rgb}{0.87, 0.44, 0.63}
+\definecolor{pigment}{rgb}{0.2, 0.2, 0.6}
+% fuer Tabellen
+\usepackage{colortbl}
+
+
+% in the document preamble
+\usepackage[stable]{footmisc}
+
+
+
+% Elemente für Seitenränder
+\let\oldmarginpar\marginpar
+
+% margin info
+\newcommand{\margininfo}[2][rectangle,draw=none,fill=orange!10, text=black,text width= 150pt,rounded corners]{
+  \oldmarginpar{
+    \textbf{Info:} \\[3pt]
+    \small \tikz \node at (0,0) [#1]{#2};}
+}
+% margin keyword
+\newcommand{\marginkeyword}[2][rectangle,draw=none,fill=green!10, text=black,text width= 150pt,rounded corners]{
+  \oldmarginpar{
+    \textbf{Info:} \\[3pt]
+    \small \tikz \node at (0,0) [#1]{#2};}
+}  
+% margin image
+\newcommand{\marginimage}[2][draw=black, rectangle, rounded corners, inner sep=2pt, inner ysep=2pt]{
+  \oldmarginpar{
+    \begin{tikzpicture}
+      \node [#1] (box){%
+        \begin{minipage}{0.95\marginparwidth}
+          \centering
+          \includegraphics[width=0.85\marginparwidth]{#2}
+        \end{minipage}
+      }; 
+      %\node[fill=black!10, text=black, rounded corners] at ($(box.north west)+(30pt,12pt)$) {index.html};
+    \end{tikzpicture}
+  }
+}
+ 
+\newcommand{\marginfigure}[4][draw=black, rectangle, rounded corners, inner sep=2pt, inner ysep=2pt]{
+  \oldmarginpar{
+    \begin{tikzpicture}
+      \node [#1] (box){%
+        \begin{minipage}{0.95\marginparwidth}
+          \centering
+          \includegraphics[width=0.85\marginparwidth]{#2}
+        \end{minipage}
+      }; 
+      %\node[fill=black!10, text=black, rounded corners] at ($(box.north west)+(30pt,12pt)$) {index.html};
+      
+    \end{tikzpicture}
+    \captionof{figure}{#3}\label{#4}
+  }
+}
+ 
+  
+\newcommand{\margintikzfig}[4][draw=black, rectangle, rounded corners, inner sep=2pt, inner ysep=2pt]{
+  \oldmarginpar{
+    \begin{tikzpicture}
+      \node [#1] (box){%
+        \begin{minipage}{0.95\marginparwidth}
+          \centering
+          #2
+        \end{minipage}
+      }; 
+      %\node[fill=black!10, text=black, rounded corners] at ($(box.north west)+(30pt,12pt)$) {index.html};
+      
+    \end{tikzpicture}
+    \captionof{figure}{#3}\label{#4}
+  }
+}
+ 
+
+% fuer Zitate
+\usepackage[square]{natbib}
+\bibliographystyle{plainnat}
+
+% SourceCode
+
+
+\include{latex-lstlisting}
+
+\usepackage{caption}[2008/04/01]
+
+\captionsetup{
+  justification=raggedright,
+  labelfont={color=-red!75!green!50,bf},
+  font=small}
+  
+  
+\usepackage{tikz}
+
+\newcommand\tikzmark[1]{%
+  \tikz[remember picture,overlay]\node[draw=red, fill=red!20,circle,draw,scale=0.5] (#1) {};}
+  
+\newcommand\tikzmarkcomment[2]{%
+   \tikz[remember picture,overlay] \node[draw=red, fill=red!20,anchor=base, rounded corners,minimum width=0.4\textwidth, minimum height=1.4\baselineskip, anchor=west,align=center,text width=0.39\textwidth] (#1) {#2};}
+
+\usepackage[siunitx,european]{circuitikz}
+
+\usetikzlibrary{arrows,decorations.pathmorphing,backgrounds,fit,positioning,shapes.symbols,chains}
+\usetikzlibrary{matrix, trees, mindmap, snakes}
+
+
+\makeatletter
+% create the shape
+\pgfcircdeclarebipole{}{\ctikzvalof{bipoles/interr/height 2}}{spst}{\ctikzvalof{bipoles/interr/height}}{\ctikzvalof{bipoles/interr/width}}{
+
+    \pgfsetlinewidth{\pgfkeysvalueof{/tikz/circuitikz/bipoles/thickness}\pgfstartlinewidth}
+
+    \pgfpathmoveto{\pgfpoint{\pgf@circ@res@left}{0pt}}
+    \pgfpathlineto{\pgfpoint{.6\pgf@circ@res@right}{\pgf@circ@res@up}}
+    \pgfusepath{draw}   
+}
+
+% make the shape accessible with nice syntax
+\def\pgf@circ@spst@path#1{\pgf@circ@bipole@path{spst}{#1}}
+\tikzset{switch/.style = {\circuitikzbasekey, /tikz/to path=\pgf@circ@spst@path, l=#1}}
+\tikzset{spst/.style = {switch = #1}}
+\makeatother
+
+
+
+%%%% Seitenlayout 
+\usepackage{titlesec}
+\usepackage{fix-cm}
+\usetikzlibrary{calc} % 2, 3, 4
+\usetikzlibrary{decorations,decorations.shapes,shapes} % 3
+
+
+% Chapter Title schöner 
+\usepackage{titlesec}
+\newcommand{\hsp}{\hspace{20pt}}
+\titleformat{\chapter}[hang]{\Huge\bfseries}{\thechapter\hsp\textcolor{gray!75}{|}\hsp}{0pt}{\Huge\bfseries}
+
+
+\definecolor{Dark}{gray}{.2} 
+\definecolor{Medium}{gray}{.6}
+\definecolor{Light}{gray}{.8}
+
+
+
+%% Titlepage
+\renewcommand*{\dictumwidth}{.6667\textwidth}
+
+\newcommand*{\titleTH}{\begingroup% T&H Typography 
+\raggedleft \vspace*{\baselineskip} {\Large Wolfgang Wolff}\\[0.167\textheight]
+{\bfseries Einführung für Schülerinnen und Schüler in }\\[\baselineskip] 
+{\textcolor{Medium}{\Huge Mikrocontroller  mit dem Arduino}}\\[\baselineskip] 
+{\small NwT Schülerheft}\par 
+\vfill
+\begin{flushright}
+\includegraphics[width=0.4\textwidth]{Bilder/ArduinoUno_Front.png}
+\end{flushright}
+
+\vfill {\Large Marie-Curie Gymnasium }\par\vspace*{3\baselineskip} \endgroup}
+
+
+%% Anhaende
+\usepackage{appendix}
+
+\renewcommand{\appendixtocname}{Anhänge}
+
+%% Index 
+\usepackage{makeidx}
+\makeindex
+
+%% Glossar
+\usepackage{glossaries}
+\makeglossaries
+ 
+%% section mit neuer Seite anfangen
+\let\stdsection\section 
+\renewcommand\section{\newpage\stdsection}
+
+\newcommand{\sectionExkurs}[1]{\section{\color{pigment}{#1}}} 
+\newcommand{\sectionInformatik}[1]{\section{\color{orange}{#1}}} 
+ 
+%% Kopf- und Fußzeile 
+\pagestyle{fancy}
+\renewcommand{\chaptermark}[1]%
+   {\markboth{\MakeUppercase{\thechapter.\ #1}}{}}
+\renewcommand{\sectionmark}[1]{
+\markboth{\thesection{} #1}{}
+}
+
+
+%% Hintergrundbild fuer Titelseite
+ \newcommand\BackgroundPic{
+\put(0,0){
+\parbox[b][\paperheight]{\paperwidth}{%
+\vfill
+\centering
+\includegraphics[width=\paperwidth,height=\paperheight,
+keepaspectratio,angle=90]{Bilder/background.png}%
+\vfill
+}}}
+
+%% Eigene Commandos
+\newcommand{\ArduinoHomepage}[1]{\href{http://www.arduino.cc/#1}{www.arduino.cc/#1}}
+
+
+  
+\newcommand{\AB}[1]{\textbf{AB} ``\textit{#1}''}
+
+%% begin document %%
+\begin{document}
+\AddToShipoutPicture*{\BackgroundPic}
+
+\sffamily
+\begin{titlepage}
+\titleTH
+
+
+
+%%  only section used in tableofcontents
+\setcounter{tocdepth}{1}
+  
+\end{titlepage}
+
+\begin{abstract}
+\epigraph{If you get, give. If you learn, teach}{Maya Angelou (April 4, 1928 – May 28, 2014),African-American author, poet, dancer, actress and singer}
+
+Arduino is an open-source electronics prototyping platform based on flexible, easy-to-use hardware and software. It's intended for artists, designers, hobbyists, and anyone interested in creating interactive objects or environments.
+
+\end{abstract}
+
+\section*{Impressum}
+\begin{flushright}
+\today \\
+Version 0.5 \\
+Wolfgang Wolff \\
+Marie-Curie Gymnasium Kirchzarten \\
+wolff@mcg-kirchzarten.de
+\vfill
+\includegraphics[ ]{Bilder/cc}
+
+Dieses Werk bzw. Inhalt steht unter einer Creative Commons Namensnennung-Nicht-kommerziell-Weitergabe unter gleichen Bedingungen 3.0 Unported Lizenz.
+\end{flushright}
+
+ % Kapitel 0 % 
+\chapter*{Vorwort}
+\epigraph{Irrend lernt man.}{Johann Wolfgang von Goethe
+(1749 - 1832), deutscher Dichter der Klassik, Naturwissenschaftler und Staatsmann}
+
+Dieses Skript ist nicht fehlerlos. Fehler beschreiben meiner Meinung nach einen Prozess. Wenn man etwas neues lernen möchte, dann sind sie unumgänglich! Deshalb sollte man auch keine Angst davor haben Fehler zu begehen. Solange man bereit ist aus ihnen zu lernen.
+
+In diesem Skript gibt es zwei Arten von Fehlern, einfache Schreibfehler und inhaltliche Fehler. Schreibfehler sind ärgerlich, aber solang der Sinn des Textes nicht verändert wird nicht tragisch. Bei inhaltlichen Fehlern sieht es ganz anders aus. Wenn in einem Beispiel-Sketch ein Fehler ist, dann wird dieser Sketch nicht mehr funktionieren! Wenn in einem Schaltplan zwei PINs vertauscht sind, kann sogar ein elektronisches Bauteil zerstört werden. Solltest du einen Fehler (egal welcher) finden, dann würde ich mich freuen, wenn du ihn mir mitteilen würdest.
+
+Du wirst dich aber auch mit deinen eigenen Fehlern befassen müssen! Wenn du wirklich lernen möchtest, wie ein Mikrocontroller funktioniert und wie du ihn programmierst (wovon ich ausgehe), dann ist es sehr wichtig, dass du alle Aufgaben selber löst! Du wirst Fehler machen, deine Schaltungen werden nicht funktionieren, andere Gruppen werden viel schneller sein! Dies sollte dich nicht entmutigen. Wenn du ehrlich die Aufgaben löst wirst du feststellen, dass ab einem gewissen Punkt du auf einmal viel schneller wirst! Eben wann, wenn du kapiert hast, wie die ganze Sache funktioniert.  
+
+\textbf{Was solltest du tun, wenn du nicht mehr weiter kommst?} Wenn etwas nicht funktioniert, dann Frage deine Mitschüler, deinen Lehrer. Versuche deinen Fehler zu finden und zu verstehen. Es macht keinen Sinn einfach weiterzumachen oder einen richtigen Sketch von der Nachbargruppe zu benutzen! Wichtig ist, dass du alle deine selbst geschriebenen Sketche gut dokumentierst. So schafft du dir selber eine gute Basis auf der du weitere Aufgaben lösen kannst.
+
+
+
+\clearpage
+\addtocontents{toc}{\protect\setcounter{tocdepth}{1}}
+\tableofcontents
+
+\clearpage
+
+
+%\include{Kapitel0/kapitel0}
+
+ % Kapitel 1 %
+\chapter{Einführung}
+
+\epigraph{„Ich denke, dass es einen Weltmarkt für vielleicht fünf Computer gibt.“}{Thomas Watson, IBM-Vorsitzender, 1943}
+
+
+\label{chapter:1}\chaptermark{Einführung}
+Der Arduino ist  eine einfache und vielseitige  Experimentierplattform, eine Art kleiner Mini-Computer. Sie besteht aus der Arduino-Hardware, einer handtellergroßen Platine mit einer Vielzahl von Anschlüssen und der Arduino-Software, einer Entwicklungsumgebung (IDE) für den PC, in der man die Programme schreibt, die auf dem Gerät ablaufen. Das Besondere an dem Arduino-Board ist, dass der Schaltplan freie Hardware (eng. open source hardware) ist. \margininfo{open source hardware ist eine Hardware oder ein sonstiges technisches Gerät, die nach lizenzkostenfreien Bauplänen hergestellt werden.}    
+
+Nach dem du dieses Kapitel gelesen und alle Aufgaben gemacht hast, sollten dir folgende Begriffe bekannt sein.
+\begin{itemize}
+\item Arduino Board
+\item IDE
+\item Sketch
+\item \textit{setup()} und \textit{loop()}
+\end{itemize}
+
+
+\include{Kapitel1/kapitel1}
+
+% Kapitel 2 %
+\chapter{Sensoren}
+
+\epigraph{We can only see a short distance ahead, but we can see plenty there that needs to be done.}{Alan Turing (1912-1954) britischer Logiker, Mathematiker und Kryptoanalytiker}
+
+\subsubsection{Was du in diesem Kapitel lernen wirst}
+\begin{itemize}
+  \item Funktionsweise von analogen und digitalen Sensoren
+  \item Verwendung von Unterprogrammen und Kontrollstrukturen in C
+  \item Funktionsweise eines Spannungteilers 
+  \item Messen von Temperatur, Entfernung, Licht und Farben, Luftfeuchte
+  \item Verwendung eines Multimeters 
+  \item Das Verwenden von Objekten und Methoden 
+\end{itemize}
+
+
+\include{Kapitel2/kapitel2}
+
+% Kapitel 3 %
+\chapter{Actoren}
+
+\epigraph{Die Maschine kann nur tun, was wir ihr zu befehlen wissen.}{Ada Lovelace (1815-1852) eigentlich Augusta Ada King Byron, Countess of Lovelace,
+britische Mathematikerin }
+\minitoc% Creating an actual minitoc
+\include{Kapitel3/kapitel3}
+
+
+
+
+% Kapitel 4 %
+\chapter{Projekte mit dem Arduino}
+
+\epigraph{Design is not just what it looks like and feels like. Design is how it works}{Steven „Steve“ Paul Jobs (24. Februar 1955 - 5. Oktober 2011), US-amerikanischer Unternehmer}
+\epigraph{Don't undertake a project unless it is manifestly important and nearly impossible}{Edwin Herbert Land, (May 7, 1909 – March 1, 1991), American scientist and inventor}
+\include{Kapitel4/kapitel4}
+
+% Kapitel 5 % 
+\chapter{Die Stationskarten}
+
+\epigraph{.}{.}
+
+\minitoc% Creating an actual minitoc
+
+\include{Kapitel5/kapitel5}
+
+
+\clearpage 
+    \addappheadtotoc
+    \appendixpage
+    \appendix
+    
+\include{Anhang/anhang}
+
+% Literaturliste soll im Inhaltsverzeichnis auftauchen
+\newpage
+\addcontentsline{toc}{section}{Literatur}
+
+% Literaturliste endgueltig anzeigen
+\bibliography{Arduino}
+
+
+\printindex
+
+
+\end{document}
+
+

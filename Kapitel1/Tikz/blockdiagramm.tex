@@ -1,0 +1,83 @@
+\documentclass[class=minimal,border=20pt]{standalone}
+\usepackage{tikz}
+\usetikzlibrary{shapes,decorations,shadows}
+
+\usetikzlibrary{calc}
+
+
+\usetikzlibrary{decorations.text}
+
+
+
+\begin{document}
+
+
+%\tikzset{paint/.style={ draw=#1!50!black, fill=#1!50 },
+%    decorate with/.style=
+%    {decorate,decoration={shape backgrounds,shape=#1,shape size=2mm}}}
+
+
+
+
+
+  
+
+% Define a few styles and constants
+\tikzstyle{sensor}=[draw, fill=blue!20, text width=8em, 
+    text centered, minimum height=2.5em]
+\tikzstyle{ann} = [above, text width=5em]
+\tikzstyle{datenbus} = [sensor, text width=2em, fill=red!20, 
+    minimum height=12em, rounded corners]
+\tikzstyle{cpu} = [sensor, fill=green!20, 
+    minimum height=8em, rounded corners]    
+\tikzstyle{zeit}=[draw, fill=blue!20, text width=8em, 
+    text centered, minimum height=3.2em, rounded corners]
+\tikzstyle{speicher}=[draw, fill=orange!20, text width=8em, 
+    text centered, minimum height=3.2em, rounded corners]
+\tikzstyle{osci}=[draw, fill=black!20, text width=8em, 
+    text centered, minimum height=3.2em, rounded corners]
+ 
+\tikzstyle{pfeil}=[draw,<->,black!80,thick,double]
+    
+\def\blockdist{3.3}
+\def\edgedist{2.5}
+
+\begin{tikzpicture}
+    \node (datenbus) [datenbus] {\rotatebox{90}{Datenbus System}};
+    % Note the use of \path instead of \node at ... below. 
+    % linke Seite
+    \path (datenbus)+(-\blockdist,0.8) node (cpu) [cpu] {Zentrale Recheneinheit \\ CPU};
+    \path (datenbus)+(-\blockdist,-1.7) node (zeit) [zeit] {Zeitgeber};
+    % untere Seite
+    \path (datenbus.south)+(-\blockdist,-1.5) node (osci) [osci] {Oszillator};
+    \path  (datenbus.south east)+(1.75,-1.5) node (io) [osci, , text width=13.5em] {I/O};
+    % rechte Seite
+    \path (datenbus)+(\blockdist,1.7) node (rom) [speicher] {ROM};
+    \path (datenbus)+(\blockdist,0) node (ram) [speicher] {RAM};
+    \path (datenbus)+(\blockdist,-1.7) node (irq) [zeit] {IRQ};
+    % obere Seite
+    %\path (datenbus.north)+(0,0.4) node (atm) {Atmel ATmega};
+    
+    
+   % AVR AtMega
+   \draw [black, fill=gray!50, fill opacity=0.3, dashed, rounded corners]($(cpu.north west)+(-10pt,20pt)$)  -- ($(rom.north east)+(10pt,20pt)$) -- ($(irq.south east)+(10pt,-10pt)$) -- ($(zeit.south west)+ (-10pt,-10pt)$) -- cycle;	
+   % Verbindungspfeile	
+    \path [pfeil] (cpu) -- node [above] {} 
+        (datenbus.west |- cpu) ;
+    \path [pfeil] (zeit) -- node [above] {} 
+        (datenbus.west |- zeit) ;
+    \path [pfeil] (rom) -- node [above] {} 
+        (datenbus.east |- rom) ;
+    \path [pfeil] (ram) -- node [above] {} 
+        (datenbus.east |- ram);
+    \path [pfeil] (irq) -- node [above] {} 
+        (datenbus.east |- irq) ;   
+    \path [pfeil] (datenbus.south) -- node [right] {} 
+        (io.north -| datenbus.south) ;     
+    \path [pfeil] (zeit.south) -- node [right] {} 
+        (osci.north -| zeit.south) ;  
+  
+\end{tikzpicture}
+
+
+\end{document}

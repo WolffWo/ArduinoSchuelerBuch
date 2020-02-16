@@ -1,0 +1,77 @@
+
+
+\usepackage{picinpar}
+\usepackage{ulem}
+\usepackage{multirow}
+\usepackage{pifont}
+\usepackage{comment}
+
+\usepackage[ngerman]{babel}
+\usepackage[utf8]{inputenc} 
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{rotating}
+\usepackage{fancyhdr}
+\usepackage{fancybox}
+\usepackage{amsmath}
+\usepackage{eso-pic} %% AddtoShipPicture nutzen
+\usepackage{amssymb}
+\usepackage{array}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amscd}
+\usepackage{latexsym}
+\usepackage{tabularx}
+\usepackage{makeidx}
+\usepackage{marvosym} % Euro-Symbol einfügen
+\usepackage{enumerate}
+\usepackage{hhline} 
+\usepackage{moreverb} 
+\usepackage[pdftex]{thumbpdf}
+\usepackage{color}
+\usepackage{colortbl}
+\usepackage{wrapfig}  
+\usepackage{longtable} 
+\usepackage{etex}
+\usepackage{pictex}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Selbst definierte Style-Dateien
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\usepackage{physik} % Physikalische Grundeinheiten sind hier enthalten
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Einzug verändert und größerer Zeilenabstand
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\parindent0.0em  % 1. Zeile nicht einrücken
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Layout: Kapitel und Seitenzahl mit Linie in die Kopfzeile
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% für einen Artikel
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+%\pagestyle{fancyplain}
+\renewcommand{\sectionmark}[1]{\markboth{#1}{}}
+\renewcommand{\subsectionmark}[1]{\markright{#1}}
+
+\lhead[]{}
+\chead{}
+\rhead[]{}
+\lfoot[]{}
+\cfoot[\textbf{\thepage}]{\textbf{\thepage}}
+\rfoot[]{}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0.2pt}
+
+

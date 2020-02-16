@@ -1,0 +1,133 @@
+\documentclass[border=3mm]{standalone}
+
+\usepackage{tikz}
+
+\usepackage{verbatim}
+\usepackage[active,tightpage]{preview}
+\usetikzlibrary{arrows}
+%\PreviewEnvironment{tikzpicture}
+\setlength\PreviewBorder{10pt}%
+
+\usepackage[siunitx,europeanresistors,americaninductors]{circuitikz}
+\usepackage{amsmath}
+\usepackage{xcolor}
+
+\pgfdeclareshape{ic4pin}{
+\anchor{center}{\pgfpointorigin} % within the node, (0,0) is the center
+\anchor{text} % this is used to center the text in the node
+{\pgfpoint{-.5\wd\pgfnodeparttextbox}{-.5\ht\pgfnodeparttextbox}}
+\savedanchor\icpina{\pgfpoint{-.25cm}{-.625cm}} % pin 1
+\anchor{p1}{\icpina}
+\savedanchor\icpinb{\pgfpoint{.25cm}{-.625cm}} % pin 2
+\anchor{p2}{\icpinb}
+\savedanchor\icping{\pgfpoint{.25cm}{.625cm}} % pin 7
+\anchor{p3}{\icping}
+\savedanchor\icpinh{\pgfpoint{-.25cm}{.625cm}} % pin 8
+\anchor{p4}{\icpinh}
+\foregroundpath{ % border and pin numbers are drawn here
+\pgfsetlinewidth{0.05cm}
+\pgfpathrectanglecorners{\pgfpoint{0.5cm}{.625cm}}{\pgfpoint{-0.5cm}{-.625cm}}
+\pgfusepath{draw} %draw rectangle
+\pgfsetlinewidth{0.03cm}
+\pgfmoveto{\pgfpoint{-0.5cm}{-.3cm}}
+\pgfpatharc{-90}{90}{.3cm}
+\pgfusepath{draw} %draw semicircle
+\pgftext[bottom,at={\pgfpoint{-.25cm}{-.55cm}}]{\scriptsize 1}
+\pgftext[bottom,at={\pgfpoint{.25cm}{-.55cm}}]{\scriptsize 2}
+\pgftext[top,at={\pgfpoint{.25cm}{.55cm}}]{\scriptsize 3}
+\pgftext[top,at={\pgfpoint{-.25cm}{.55cm}}]{\scriptsize 4}
+}}
+
+\pgfdeclareshape{optokoppler}{
+\anchor{center}{\pgfpointorigin} % within the node, (0,0) is the center
+\anchor{text} % this is used to center the text in the node
+{\pgfpoint{-.5\wd\pgfnodeparttextbox}{-.5\ht\pgfnodeparttextbox}}
+\savedanchor\icpina{\pgfpoint{-1.25cm}{.3cm}} % pin 1
+\anchor{p1}{\icpina}
+\savedanchor\icpinb{\pgfpoint{-1.25cm}{-.3cm}} % pin 2
+\anchor{p2}{\icpinb}
+\savedanchor\icping{\pgfpoint{1.25cm}{-.3cm}} % pin 3
+\anchor{p3}{\icping}
+\savedanchor\icpinh{\pgfpoint{1.25cm}{.3cm}} % pin 4
+\anchor{p4}{\icpinh}
+\foregroundpath{ % border and pin numbers are drawn here
+\pgfsetlinewidth{0.05cm}
+\pgfpathmoveto{\pgfpoint{0.5cm}{.625cm}} 
+\pgfpathlineto{\pgfpoint{-0.5cm}{.625cm}}
+\pgfpatharc{90}{270}{.625cm}
+\pgfpathmoveto{\pgfpoint{-0.5cm}{-.625cm}} 
+\pgfpathlineto{\pgfpoint{0.5cm}{-.625cm}}
+\pgfpatharc{-90}{90}{.625cm}
+\pgfusepath{draw} %draw border
+\pgfsetlinewidth{0.015cm}
+\pgfpathmoveto{\pgfpoint{-1.25cm}{.3cm}} 
+\pgfpathlineto{\pgfpoint{-.5cm}{.3cm}}
+\pgfpathlineto{\pgfpoint{-.5cm}{-.3cm}} 
+\pgfpathlineto{\pgfpoint{-1.25cm}{-.3cm}}
+\pgfusepath{draw} 
+\pgfpathmoveto{\pgfpoint{-.4cm}{-.1cm}} 
+\pgfpathlineto{\pgfpoint{-.6cm}{-.1cm}}
+\pgfusepath{draw}
+\pgfpathmoveto{\pgfpoint{-.4cm}{.1cm}} 
+\pgfpathlineto{\pgfpoint{-.6cm}{.1cm}}
+\pgfpathlineto{\pgfpoint{-.5cm}{-.1cm}}
+\pgfpathlineto{\pgfpoint{-.4cm}{.1cm}}
+\pgfusepath{fill}% led
+\pgfpathmoveto{\pgfpoint{1.25cm}{.3cm}} 
+\pgfpathlineto{\pgfpoint{.7cm}{.3cm}}
+\pgfpathlineto{\pgfpoint{.5cm}{.1cm}}
+\pgfpathlineto{\pgfpoint{.5cm}{.2cm}}
+\pgfpathlineto{\pgfpoint{.5cm}{-.2cm}}
+\pgfpathlineto{\pgfpoint{.5cm}{-.1cm}}
+\pgfpathlineto{\pgfpoint{.7cm}{-.3cm}}
+\pgfpathlineto{\pgfpoint{1.25cm}{-.3cm}} 
+\pgfusepath{draw}
+\pgfpathmoveto{\pgfpoint{0.55cm}{-.23cm}} 
+\pgfpathlineto{\pgfpoint{0.63cm}{-.15cm}}
+\pgfpathlineto{\pgfpoint{0.65cm}{-.25cm}}
+\pgfpathlineto{\pgfpoint{0.55cm}{-.23cm}}
+\pgfusepath{fill}% phototransistor
+\pgftext[bottom,at={\pgfpoint{-1.15cm}{.34cm}}]{\scriptsize 1}
+\pgftext[top,at={\pgfpoint{-1.15cm}{-.34cm}}]{\scriptsize 2}
+\pgftext[top,at={\pgfpoint{1.15cm}{-.34cm}}]{\scriptsize 3}
+\pgftext[bottom,at={\pgfpoint{1.15cm}{.34cm}}]{\scriptsize 4}
+}}
+
+
+\begin{document}
+
+
+\begin{circuitikz}[every node/.style={font=\small}]
+  %\draw[help lines,step=.1] (1,1) grid (6,3);
+  %\draw[thick,help lines,step=1,color=red!50] (0,0) grid (10,3); 
+  %\foreach \x in {0,1,...,10} \node[anchor=north] at (\x,0) {\x};
+  %\foreach \y in {0,1,...,3} \node[anchor=east] at (0,\y) {\y};
+  % optokoppler
+  \draw (7,2) node[optokoppler] (op) {op};
+  \draw (0,2.3) node[anchor=east]{5V}
+  (0,2.3) to[short, o-] (op.p1);
+  \draw (1,0) node[anchor=north]{GND}
+  (1,0) to[short, o-] (1,0.5)
+  (1,.94) node[npn](npn) {}
+  (npn.base) to[short, -o] (0,.95)
+  (0,.95) node[anchor=east]{Signal IN}
+  (npn.collector) to[short] (1.2,1.7)
+  (1.2,1.7) to[R=220<\ohm>] (2.5,1.7) 
+  (2.5,1.7) to[] (op.p2);
+  \draw (op.p3) to[short,-o] (8.25,0)
+  (8.25,0) node[anchor=north]{GND};
+  \draw (op.p4) to[R] (8.25,4.5)
+  (8.25,4.5) to[short,-o] (8.25,4.5)
+  node[anchor=south]{5V}
+  (op.p4) to[short,*-o] (9.5,2.3) 
+  node[anchor=west]{Signal OUT};
+  \draw[dashed](3,1.5)rectangle coordinate (c axis mid)(5.5,2.5);  
+  \node[anchor=south] at (4.25,2.5) (fl){Fernleitung};
+  \draw[dashed](-.5,-.5)rectangle (2.5,3);  
+  \node[anchor=south] at (1,3) (se) {Sender}; 
+  \draw[dashed](5.7,-.5)rectangle (10,5);  
+  \node[anchor=north] at (7.75,5.5) (se) {Empf\"anger}; 
+\end{circuitikz}
+
+
+\end{document}
