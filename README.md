@@ -1,7 +1,7 @@
 # Arduino Schueler Buch
 
 Dieses Schülerbuch ist in den letzten 8 Jahren entstanden. Der Startpunkt war die Geburt meines 3. Kindes und der damit einhergehenden Elternzeit. Von September bis November habe ich mich mit einem Arduino Einsteiger Set und Arduino Buch beschäftigt. Während dieser Zeit entstand die Idee eines kleinen Skriptes um den Arduino Uno im NwT Unterricht zu verwenden. Über die Jahre hat sich dieses kleine Skript zu einem Buch gewandelt. Einen massgeblichen Einfluss hatte eine von mir durchgeführte Lehrerfortbildung (allerdings in Informatik Klasse 10). Dieser Fortbildung ist geschuldet, dass ich den didaktischen Aufbau des Inhaltes völlig neue gestaltet habe. So wurde zum Beispiel der Aufbau der verschiedenen Schaltungen enorm vereinfacht. Es sind die in oranger Farbe gekennzeichneten Kapitel dazugekommen, die einen Einblick in die Informatik gestatten und so den Rahmen für die Schüler*innen klarer setzen.      
-
+Sie/ihr könnt es hier https://github.com/WolffWo/ArduinoSchuelerBuch/releases/download/v0.9/Arduino.pdf herunterladen.
 ## Aufbau des Buches
 
 ### Kapitel 1: Einführung
